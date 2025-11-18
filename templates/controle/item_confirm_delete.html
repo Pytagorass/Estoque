@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Excluir {{ item.nome }}{% endblock %}
+{% block page_title %}Excluir item{% endblock %}
+{% block page_subtitle %}Confirme para remover definitivamente do cadastro{% endblock %}
+{% block header_actions %}
+<a class="btn btn-secondary" href="{% url 'controle:cadastro_itens' %}">Cancelar</a>
+{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <span>Tem certeza que deseja excluir?</span>
+    </div>
+    <p>O item <strong>{{ item.nome }}</strong> (código {{ item.codigo_estoque }}) será removido e não aparecerá mais em relatórios.</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="card-actions">
+            <a class="btn btn-secondary" href="{% url 'controle:cadastro_itens' %}">Manter item</a>
+            <button type="submit" class="btn btn-danger">Excluir definitivamente</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

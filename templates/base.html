@@ -1,7 +1,66 @@
-<!-- incluindo o cabeçalho padronizado das páginas -->
-{% include 'includes/navbar.html' %}
-<!-- definindo o corpo (body) das páginas -->
-{% block content %}
-{% endblock %}
-<!-- definindo o rodapé padrão -->
-{% include 'includes/footer.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Controle de Estoque do Barco-Hotel{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/aguape.css' %}">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">A</div>
+                <div>
+                    <strong>Aguapé</strong>
+                    <small>Controle de Estoque</small>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{% url 'controle:relatorio' %}" class="nav-link {% if request.resolver_match.url_name == 'relatorio' %}active{% endif %}">
+                    <span class="icon">📊</span> Relatórios
+                </a>
+                <a href="{% url 'controle:movimentacao' %}" class="nav-link {% if request.resolver_match.url_name == 'movimentacao' %}active{% endif %}">
+                    <span class="icon">🔁</span> Movimentação
+                </a>
+                <a href="{% url 'controle:cadastro_itens' %}" class="nav-link {% if request.resolver_match.url_name == 'cadastro_itens' %}active{% endif %}">
+                    <span class="icon">📦</span> Itens
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-circle">
+                    {{ request.user.get_username|default:"A"|slice:":1"|upper }}
+                </div>
+                <div>
+                    <strong>{{ request.user.get_username|default:"Administrador" }}</strong>
+                    <small>sessão ativa</small>
+                </div>
+            </div>
+        </aside>
+        <main class="content">
+            <header class="content-header">
+                <div>
+                    <h1>{% block page_title %}Controle de Estoque{% endblock %}</h1>
+                    <p class="subtitle">{% block page_subtitle %}Barco-Hotel Aguapé{% endblock %}</p>
+                </div>
+                <div class="header-actions">
+                    {% block header_actions %}{% endblock %}
+                </div>
+            </header>
+            {% if messages %}
+                <div class="alerts">
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <section class="content-body">
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+    </div>
+</body>
+</html>

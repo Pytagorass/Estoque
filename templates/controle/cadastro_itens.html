@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Cadastro de Itens{% endblock %}
+{% block page_title %}Catálogo do Barco-Hotel{% endblock %}
+{% block page_subtitle %}Cadastre insumos e acompanhe alertas de estoque mínimo{% endblock %}
+{% block content %}
+<div class="grid two-columns">
+    <div class="card">
+        <div class="card-header">
+            <span>Novo item de estoque</span>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="form-field {% if field.field.widget.input_type == 'checkbox' %}form-field-checkbox{% endif %}">
+                        {% if field.field.widget.input_type == 'checkbox' %}
+                            <label class="checkbox-inline" for="{{ field.id_for_label }}">
+                                <span class="checkbox-label">Status:</span>
+                                {{ field }}
+                                <span>{{ field.label }}</span>
+                            </label>
+                        {% else %}
+                            {{ field.label_tag }}
+                            {{ field }}
+                        {% endif %}
+                        {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                        {% for error in field.errors %}
+                            <span class="field-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="card-actions">
+                <button type="submit" class="btn">Salvar item</button>
+            </div>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <span>Visão geral</span>
+        </div>
+        <div class="badges">
+            <div class="badge">
+                <small>Total de itens</small>
+                <strong>{{ stats.total }}</strong>
+            </div>
+            <div class="badge">
+                <small>Ativos</small>
+                <strong>{{ stats.ativos }}</strong>
+            </div>
+            <div class="badge">
+                <small>Em alerta</small>
+                <strong>{{ stats.alertas }}</strong>
+            </div>
+        </div>
+        <p>Utilize este painel para garantir que todos os insumos críticos do barco-hotel estejam cadastrados.</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span>Itens cadastrados</span>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Código estoque</th>
+                    <th>Unidade</th>
+                    <th>Estoque atual</th>
+                    <th>Estoque mínimo</th>
+                    <th>Nível</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                    <tr>
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.codigo_estoque }}</td>
+                        <td>{{ item.get_unidade_display }}</td>
+                        <td>{{ item.estoque_atual }}</td>
+                        <td>{{ item.estoque_minimo }}</td>
+                        <td>
+                            {% if item.em_alerta %}
+                                <span class="status-pill status-alerta">Alerta</span>
+                            {% else %}
+                                <span class="status-pill status-ok">OK</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <a class="btn-link" href="{% url 'controle:editar_item' item.pk %}">Editar</a>
+                                <a class="btn-link btn-link-danger" href="{% url 'controle:excluir_item' item.pk %}">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="7">Nenhum item cadastrado.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

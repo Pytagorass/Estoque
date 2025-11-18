@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Relatório básico{% endblock %}
+{% block page_title %}Relatórios e indicadores{% endblock %}
+{% block page_subtitle %}Acompanhe o desempenho do estoque do barco-hotel{% endblock %}
+{% block header_actions %}
+<a class="btn btn-secondary" href="{% url 'controle:movimentacao' %}">Nova movimentação</a>
+{% endblock %}
+{% block content %}
+<div class="grid two-columns">
+    <div class="card">
+        <div class="card-header">
+            <span>Resumo (últimos 7 dias)</span>
+            <small>Desde {{ periodo_inicio|date:"d/m/Y" }}</small>
+        </div>
+        <div class="badges">
+            <div class="badge">
+                <small>Entradas</small>
+                <strong>{{ resumo_periodo.ENTRADA|default:"0" }}</strong>
+            </div>
+            <div class="badge">
+                <small>Saídas</small>
+                <strong>{{ resumo_periodo.SAIDA|default:"0" }}</strong>
+            </div>
+            <div class="badge">
+                <small>Total de itens</small>
+                <strong>{{ total_itens }}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <span>Alertas ativos</span>
+        </div>
+        <ul class="list">
+            {% for item in abaixo_minimo %}
+                <li>
+                    <strong>{{ item.nome }}</strong><br>
+                    Estoque {{ item.estoque_atual }} / Mínimo {{ item.estoque_minimo }}
+                </li>
+            {% empty %}
+                <li>Todos os itens estão acima do mínimo.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span>Estoque atual</span>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantidade</th>
+                    <th>Mínimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                    <tr>
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.estoque_atual }}</td>
+                        <td>{{ item.estoque_minimo }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="3">Nenhum item cadastrado.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

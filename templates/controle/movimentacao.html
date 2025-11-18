@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Movimentação de Estoque{% endblock %}
+{% block page_title %}Movimentações rápidas{% endblock %}
+{% block page_subtitle %}Registre entradas ou saídas e acompanhe os últimos lançamentos{% endblock %}
+{% block content %}
+<div class="grid two-columns">
+    <div class="card">
+        <div class="card-header">
+            <span>Registrar movimentação</span>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <span class="field-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="card-actions">
+                <button type="submit" class="btn">Salvar lançamento</button>
+            </div>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <span>Indicadores do dia</span>
+        </div>
+        <div class="badges">
+            <div class="badge">
+                <small>Saldo total (unid.)</small>
+                <strong>{{ indicadores.saldo_total }}</strong>
+            </div>
+            <div class="badge">
+                <small>Itens em alerta</small>
+                <strong>{{ indicadores.alertas }}</strong>
+            </div>
+            <div class="badge">
+                <small>Itens movimentados</small>
+                <strong>{{ indicadores.itens_movimentados }}</strong>
+            </div>
+        </div>
+        <p>Use estes números para decidir movimentos urgentes para o barco-hotel.</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span>Últimas movimentações</span>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Item</th>
+                    <th>Quantidade</th>
+                    <th>Responsável</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mov in movimentacoes %}
+                    <tr>
+                        <td>{{ mov.data|date:"d/m/Y" }}</td>
+                        <td>{{ mov.get_tipo_display }}</td>
+                        <td>{{ mov.item.nome }}</td>
+                        <td>{{ mov.quantidade }}</td>
+                        <td>{{ mov.responsavel }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="5">Sem movimentações registradas.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
