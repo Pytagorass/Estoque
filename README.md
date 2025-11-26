@@ -1,6 +1,6 @@
 # Controle de Estoque do Barco-Hotel
 
-Sistema Django focado em monitorar itens, movimentações e relatórios de estoque do barco-hotel Aguapé. O projeto foi criado para ser 100 % server-side, com validações no `Model`, `ModelForm`, signals e interface HTML/CSS inspirada nas telas administrativas existentes do barco.
+Sistema Django focado em monitorar itens, movimentações e relatórios de estoque do barco-hotel Aguapé. O projeto foi criado para ser 100 % server-side, com validações no `Model`, `ModelForm`, signals e interface HTML/CSS inspirada nas telas administrativas existentes do Sistema de Gerenciamento do Barco-Hotel.
 
 ## Principais recursos
 
@@ -17,7 +17,7 @@ barcohotel/          # Configurações principais (settings, urls, wsgi/asgi)
 controle/            # Aplicativo com models, forms, views e urls
 templates/           # Base.html + telas (controle e conta/login)
 static/css/          # aguape.css com tema geral
-media/               # Pasta para uploads (vazia no repositório)
+media/               # Pasta para uploads 
 db.sqlite3           # Banco padrão (pode ser recriado via migrate)
 ```
 
@@ -60,7 +60,7 @@ db.sqlite3           # Banco padrão (pode ser recriado via migrate)
 
 ## Fluxo de uso
 
-1. **Login** – `/login/` (sem sidebar, conteúdo centralizado).
+1. **Login** – `/login/` login para entrar no sistema.
 2. **Dashboard/Relatórios** – `/relatorio/` exibe resumo semanal e alertas.
 3. **Movimentações** – `/movimentacao/` para lançar entradas/saídas rápidas.
 4. **Itens** – `/itens/` para cadastrar, editar ou excluir itens.
