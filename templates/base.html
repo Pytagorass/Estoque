@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="{% static 'css/aguape.css' %}">
 </head>
 <body>
-    <div class="layout">
+    <div class="layout {% if request.resolver_match.url_name == 'login' %}layout-login{% endif %}">
+        {% if request.resolver_match.url_name != 'login' %}
         <aside class="sidebar">
             <div class="brand">
                 <div class="brand-logo">A</div>
@@ -38,13 +39,20 @@
                     <strong>{{ request.user.get_username|default:"Administrador" }}</strong>
                     <small>sessão ativa</small>
                 </div>
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'controle:logout' %}" method="post" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link btn-link-danger">Sair</button>
+                    </form>
+                {% endif %}
             </div>
         </aside>
-        <main class="content">
+        {% endif %}
+        <main class="content {% if request.resolver_match.url_name == 'login' %}content-login{% endif %}">
             <header class="content-header">
                 <div>
-                    <h1>{% block page_title %}Controle de Estoque{% endblock %}</h1>
-                    <p class="subtitle">{% block page_subtitle %}Barco-Hotel Aguapé{% endblock %}</p>
+                    <h1 class="{% if request.resolver_match.url_name == 'login' %}title-centered{% endif %}">{% block page_title %}Controle de Estoque{% endblock %}</h1>
+                    <p class="subtitle {% if request.resolver_match.url_name == 'login' %}title-centered{% endif %}">{% block page_subtitle %}Barco-Hotel Aguapé{% endblock %}</p>
                 </div>
                 <div class="header-actions">
                     {% block header_actions %}{% endblock %}

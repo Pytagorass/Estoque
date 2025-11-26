@@ -1,14 +1,19 @@
 from datetime import timedelta
 
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.db.models import F, Sum
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from .forms import ItemForm, MovimentacaoForm
+from .forms import ItemForm, LoginForm, MovimentacaoForm
 from .models import Item, Movimentacao
 
 
+@login_required
 def cadastro_itens(request):
     itens_queryset = Item.objects.order_by("nome")
     itens = list(itens_queryset)
@@ -36,6 +41,7 @@ def cadastro_itens(request):
     )
 
 
+@login_required
 def editar_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     if request.method == "POST":
@@ -56,6 +62,7 @@ def editar_item(request, pk):
     )
 
 
+@login_required
 def excluir_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     if request.method == "POST":
@@ -70,6 +77,7 @@ def excluir_item(request, pk):
     )
 
 
+@login_required
 def movimentacao_simples(request):
     if request.method == "POST":
         form = MovimentacaoForm(request.POST)
@@ -96,6 +104,7 @@ def movimentacao_simples(request):
     )
 
 
+@login_required
 def relatorio_basico(request):
     itens = list(Item.objects.order_by("nome"))
     ultimos_dias = timezone.now().date() - timedelta(days=7)
@@ -118,3 +127,12 @@ def relatorio_basico(request):
             "ativos": sum(1 for item in itens if item.ativo),
         },
     )
+
+
+class LoginPageView(LoginView):
+    template_name = "conta/login.html"
+    form_class = LoginForm
+
+
+class LogoutPageView(LogoutView):
+    next_page = "controle:login"

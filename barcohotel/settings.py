@@ -91,3 +91,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Chave primária padrão
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Autenticação
+LOGIN_URL = "controle:login"
+LOGIN_REDIRECT_URL = "controle:relatorio"
+LOGOUT_REDIRECT_URL = "controle:login"

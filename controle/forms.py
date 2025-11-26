@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import Item, Movimentacao
 
@@ -25,3 +26,8 @@ class MovimentacaoForm(forms.ModelForm):
 
     def clean_responsavel(self):
         return self.cleaned_data["responsavel"].strip()
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label="Usuário", max_length=150, widget=forms.TextInput(attrs={"autofocus": True}))
+    password = forms.CharField(label="Senha", widget=forms.PasswordInput)
