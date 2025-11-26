@@ -27,6 +27,20 @@ body {
     min-height: 100vh;
 }
 
+.layout-login {
+    justify-content: center;
+    align-items: center;
+}
+
+.content-login {
+    max-width: 460px;
+    width: 100%;
+}
+
+.title-centered {
+    text-align: center;
+}
+
 .sidebar {
     width: 250px;
     background: #fff;
@@ -87,6 +101,7 @@ body {
     align-items: center;
     padding-top: 1rem;
     border-top: 1px solid #e7e7ed;
+    flex-wrap: wrap;
 }
 
 .user-circle {
@@ -105,6 +120,8 @@ body {
     flex: 1;
     padding: 2rem 3rem;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     gap: 2rem;
 }
@@ -160,6 +177,7 @@ body {
 
 .btn-link-danger {
     color: var(--red-500);
+    padding: 0;
 }
 
 .alerts {
@@ -174,6 +192,23 @@ body {
     padding: 0.75rem 1rem;
     border-radius: 0.75rem;
     font-weight: 500;
+}
+
+.alert-error {
+    background: rgba(193, 41, 46, 0.12);
+    color: var(--red-500);
+}
+
+.login-card {
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.login-form input {
+    width: 100%;
 }
 
 .content-body {
@@ -375,4 +410,12 @@ table tr:hover td {
     .content {
         padding: 1.5rem;
     }
+}
+.logout-form {
+    width: 100%;
+}
+
+.logout-form .btn {
+    width: 100%;
+    justify-content: center;
 }
