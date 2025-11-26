@@ -11,6 +11,7 @@
     <link rel="icon" type="image/x-icon" href="{{ MEDIA_URL }}iconeAguape.ico">
 </head>
 <body>
+    <!-- Layout principal: sidebar + conteúdo. Para o login, só o conteúdo é mostrado -->
     <div class="layout {% if request.resolver_match.url_name == 'login' %}layout-login{% endif %}">
         {% if request.resolver_match.url_name != 'login' %}
         <aside class="sidebar">

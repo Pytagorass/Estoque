@@ -5,6 +5,8 @@ from .models import Item, Movimentacao
 
 
 class ItemForm(forms.ModelForm):
+    """Formulário principal para criação/edição de itens do catálogo."""
+
     class Meta:
         model = Item
         fields = ["nome", "codigo_estoque", "unidade", "estoque_minimo", "observacao", "ativo"]
@@ -17,6 +19,8 @@ class ItemForm(forms.ModelForm):
 
 
 class MovimentacaoForm(forms.ModelForm):
+    """Utilizado nas entradas/saídas rápidas exibidas no painel."""
+
     class Meta:
         model = Movimentacao
         fields = ["item", "tipo", "quantidade", "data", "responsavel", "observacao"]
@@ -29,5 +33,7 @@ class MovimentacaoForm(forms.ModelForm):
 
 
 class LoginForm(AuthenticationForm):
+    """Formulário baseado no AuthenticationForm padrão, com labels em português."""
+
     username = forms.CharField(label="Usuário", max_length=150, widget=forms.TextInput(attrs={"autofocus": True}))
     password = forms.CharField(label="Senha", widget=forms.PasswordInput)

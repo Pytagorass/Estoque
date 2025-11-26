@@ -7,6 +7,7 @@ from django.utils import timezone
 
 
 class Item(models.Model):
+    """Representa um insumo controlado pelo barco-hotel."""
     UNIDADES = [
         ("UN", "Unidade"),
         ("KG", "Quilo"),
@@ -35,6 +36,7 @@ class Item(models.Model):
         ordering = ("nome",)
 
     def clean(self):
+        """Regra de negócio: nenhum estoque negativo ou código em branco."""
         if not self.nome:
             raise ValidationError({"nome": "Informe o nome do item."})
         if not self.codigo_estoque:
@@ -45,11 +47,13 @@ class Item(models.Model):
             raise ValidationError({"estoque_minimo": "O estoque mínimo precisa ser positivo."})
 
     def save(self, *args, **kwargs):
+        """Garante que `clean()` seja executado em toda gravação."""
         self.full_clean()
         return super().save(*args, **kwargs)
 
     @property
     def em_alerta(self):
+        """Indica se o saldo atual está abaixo ou igual ao mínimo configurado."""
         return self.estoque_atual <= self.estoque_minimo
 
     def __str__(self):
@@ -57,6 +61,7 @@ class Item(models.Model):
 
 
 class Movimentacao(models.Model):
+    """Histórico simples de entradas e saídas de um item."""
     TIPOS = [
         ("ENTRADA", "Entrada"),
         ("SAIDA", "Saída"),
@@ -73,9 +78,11 @@ class Movimentacao(models.Model):
         ordering = ("-data", "-id")
 
     def _delta(self):
+        """Retorna o valor que será aplicado ao estoque (positivo ou negativo)."""
         return self.quantidade if self.tipo == "ENTRADA" else -self.quantidade
 
     def clean(self):
+        """Previne saídas com estoque negativo e garante quantidade positiva."""
         if self.quantidade <= 0:
             raise ValidationError({"quantidade": "Informe uma quantidade positiva."})
         if self.tipo == "SAIDA":
@@ -90,6 +97,7 @@ class Movimentacao(models.Model):
                 )
 
     def save(self, *args, **kwargs):
+        """Aplica o delta na tabela de Item sempre que a movimentação é gravada."""
         is_new = self._state.adding
         original_delta = Decimal("0")
         if not is_new:
