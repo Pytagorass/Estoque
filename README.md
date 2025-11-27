@@ -17,7 +17,7 @@ barcohotel/          # Configurações principais (settings, urls, wsgi/asgi)
 catalogo/            # App dedicado ao catálogo de itens (models/forms/views/urls próprios)
 controle/            # App operacional (login, movimentações e relatórios)
 templates/           # Base.html + telas para catálgo, controle e conta/login
-static/css/          # aguape.css com o tema global
+static/css/          # aguape.css com o tema global do projeto
 media/               # Pasta para uploads (vazia no repositório)
 db.sqlite3           # Banco padrão (pode ser recriado via migrate)
 ```
