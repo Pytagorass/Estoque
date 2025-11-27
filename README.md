@@ -13,12 +13,13 @@ Sistema Django focado em monitorar itens, movimentações e relatórios de estoq
 ## Estrutura do projeto
 
 ```
-barcohotel/          # Configurações principais (settings, urls, wsgi/asgi)
-controle/            # Aplicativo com models, forms, views e urls
-templates/           # Base.html + telas (controle e conta/login)
+barcohotel/          # Configura��es principais (settings, urls, wsgi/asgi)
+catalogo/            # App dedicado ao cat��logo (models/forms/views/urls dos itens)
+controle/            # App operacional (login, movimenta����es e relat��rios)
+templates/           # Base.html + telas (catalogo, controle e conta/login)
 static/css/          # aguape.css com tema geral
 media/               # Pasta para uploads 
-db.sqlite3           # Banco padrão (pode ser recriado via migrate)
+db.sqlite3           # Banco padr�o (pode ser recriado via migrate)
 ```
 
 ## Pré-requisitos

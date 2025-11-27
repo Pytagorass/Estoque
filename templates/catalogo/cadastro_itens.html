@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block title %}Cadastro de Itens{% endblock %}
 {% block page_title %}Catálogo do Barco-Hotel{% endblock %}
 {% block page_subtitle %}Cadastre insumos e acompanhe alertas de estoque mínimo{% endblock %}
@@ -91,8 +91,8 @@
                         </td>
                         <td>
                             <div class="actions">
-                                <a class="btn-link" href="{% url 'controle:editar_item' item.pk %}">Editar</a>
-                                <a class="btn-link btn-link-danger" href="{% url 'controle:excluir_item' item.pk %}">Excluir</a>
+                                <a class="btn-link" href="{% url 'catalogo:editar_item' item.pk %}">Editar</a>
+                                <a class="btn-link btn-link-danger" href="{% url 'catalogo:excluir_item' item.pk %}">Excluir</a>
                             </div>
                         </td>
                     </tr>

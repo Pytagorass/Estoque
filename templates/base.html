@@ -23,13 +23,13 @@
                 </div>
             </div>
             <nav class="sidebar-nav">
-                <a href="{% url 'controle:relatorio' %}" class="nav-link {% if request.resolver_match.url_name == 'relatorio' %}active{% endif %}">
+                <a href="{% url 'controle:relatorio' %}" class="nav-link {% if request.resolver_match.namespace == 'controle' and request.resolver_match.url_name == 'relatorio' %}active{% endif %}">
                     <span class="icon">📊</span> Relatórios
                 </a>
-                <a href="{% url 'controle:movimentacao' %}" class="nav-link {% if request.resolver_match.url_name == 'movimentacao' %}active{% endif %}">
+                <a href="{% url 'controle:movimentacao' %}" class="nav-link {% if request.resolver_match.namespace == 'controle' and request.resolver_match.url_name == 'movimentacao' %}active{% endif %}">
                     <span class="icon">🔁</span> Movimentação
                 </a>
-                <a href="{% url 'controle:cadastro_itens' %}" class="nav-link {% if request.resolver_match.url_name == 'cadastro_itens' %}active{% endif %}">
+                <a href="{% url 'catalogo:cadastro_itens' %}" class="nav-link {% if request.resolver_match.namespace == 'catalogo' %}active{% endif %}">
                     <span class="icon">📦</span> Itens
                 </a>
             </nav>

@@ -8,6 +8,7 @@ from .views import home
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home, name="home"),
+    path("itens/", include("catalogo.urls")),
     path("", include("controle.urls")),
 ]
 

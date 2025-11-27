@@ -6,10 +6,4 @@ class Migration(migrations.Migration):
         ("controle", "0001_initial"),
     ]
 
-    operations = [
-        migrations.RenameField(
-            model_name="item",
-            old_name="sku",
-            new_name="codigo_estoque",
-        ),
-    ]
+    operations = []

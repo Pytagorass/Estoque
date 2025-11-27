@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import F, Sum
 from django.shortcuts import redirect, render
 
+from catalogo.models import Item
+
 from ..forms import MovimentacaoForm
-from ..models import Item, Movimentacao
+from ..models import Movimentacao
 
 
 @login_required

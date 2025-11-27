@@ -5,7 +5,9 @@ from django.db.models import Sum
 from django.shortcuts import render
 from django.utils import timezone
 
-from ..models import Item, Movimentacao
+from catalogo.models import Item
+
+from ..models import Movimentacao
 
 
 @login_required

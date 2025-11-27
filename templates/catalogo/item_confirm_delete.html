@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block title %}Excluir {{ item.nome }}{% endblock %}
 {% block page_title %}Excluir item{% endblock %}
 {% block page_subtitle %}Confirme para remover definitivamente do cadastro{% endblock %}
 {% block header_actions %}
-<a class="btn btn-secondary" href="{% url 'controle:cadastro_itens' %}">Cancelar</a>
+<a class="btn btn-secondary" href="{% url 'catalogo:cadastro_itens' %}">Cancelar</a>
 {% endblock %}
 {% block content %}
 <div class="card">
@@ -14,7 +14,7 @@
     <form method="post">
         {% csrf_token %}
         <div class="card-actions">
-            <a class="btn btn-secondary" href="{% url 'controle:cadastro_itens' %}">Manter item</a>
+            <a class="btn btn-secondary" href="{% url 'catalogo:cadastro_itens' %}">Manter item</a>
             <button type="submit" class="btn btn-danger">Excluir definitivamente</button>
         </div>
     </form>
