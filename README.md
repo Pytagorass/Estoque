@@ -1,6 +1,6 @@
 # Controle de Estoque do Barco-Hotel
 
-Sistema Django focado em monitorar itens, movimentações e relatórios de estoque do barco-hotel Aguapé. O projeto foi criado 100% em Django puro, com validações no `Model`, `ModelForm`, uso de signals quando necessário e uma interface HTML/CSS inspirada nas telas administrativas existentes no Sistema de Gerenciamento do Barco-hotel.
+Sistema Django focado em monitorar itens, movimentações e relatórios de estoque do barco-hotel Aguapé. O projeto foi criado 100% em Django puro, com validações no `Model`, `ModelForm`, uso de signals quando necessário e uma interface HTML/CSS inspirada nas telas administrativas existentes no Sistema de Gerenciamento do Barco-hotel Aguap.
 
 ## Principais recursos
 
@@ -17,9 +17,9 @@ barcohotel/          # Configurações principais (settings, urls, wsgi/asgi)
 catalogo/            # App dedicado ao catálogo de itens (models/forms/views/urls próprios)
 controle/            # App operacional (login, movimentações e relatórios)
 templates/           # Base.html + telas para catálgo, controle e conta/login
-static/css/          # aguape.css com o tema global do projeto
-media/               # Pasta para uploads (vazia no repositório)
-db.sqlite3           # Banco padrão (pode ser recriado via migrate)
+static/css/          # aguape.css com o tema global
+media/               # Pasta para uploads
+db.sqlite3           # Banco padrão
 ```
 
 ## Pré-requisitos
@@ -72,13 +72,4 @@ Todos os endpoints que manipulam dados estão protegidos por `@login_required`.
 
 - `static/css/aguape.css` guarda todo o tema (cores, cards, sidebar, tabelas, alertas).
 - `templates/base.html` concentra o layout principal, incluindo o estado especial para a tela de login.
-- A pasta `media/` está vazia; configure `MEDIA_ROOT`/`MEDIA_URL` conforme necessário para armazenar uploads.
 
-## Próximos passos sugeridos
-
-- Criar testes automatizados cobrindo autenticação e regras de estoque.
--,Expandir o módulo de relatórios com filtros por período e exportação (CSV/PDF).
-- Integrar notificações (e-mail/SMS) para itens em alerta ou movimentações específicas.
-
----
-Projeto mantido com Django puro, sem React ou SQL manual, seguindo as diretrizes do Barco-Hotel Aguapé.
