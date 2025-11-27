@@ -1,84 +1,84 @@
 # Controle de Estoque do Barco-Hotel
 
-Sistema Django focado em monitorar itens, movimentações e relatórios de estoque do barco-hotel Aguapé. O projeto foi criado para ser 100 % server-side, com validações no `Model`, `ModelForm`, signals e interface HTML/CSS inspirada nas telas administrativas existentes do Sistema de Gerenciamento do Barco-Hotel.
+Sistema Django focado em monitorar itens, movimentações e relatórios de estoque do barco-hotel Aguapé. O projeto foi criado 100% em Django puro, com validações no `Model`, `ModelForm`, uso de signals quando necessário e uma interface HTML/CSS inspirada nas telas administrativas existentes no Sistema de Gerenciamento do Barco-hotel.
 
 ## Principais recursos
 
-- **Autenticação** nativa do Django com página de login própria.
-- **Cadastro de itens** com alerta de estoque mínimo e campos específicos (SKU, unidade, validade, observações, status).
-- **Movimentações simples** (entrada/saída) com indicadores e histórico.
+- **Autenticação** nativa do Django com página de login personalizada e enxuta.
+- **Catálogo de itens** com alerta de estoque mínimo e campos específicos (código, unidade, observações).
+- **Movimentações simples** (entradas e saídas) com painel de indicadores e histórico recente.
 - **Relatórios básicos** com resumo dos últimos dias e lista de itens em alerta.
-- **Layout responsivo** reutilizando o tema Aguapé (sidebar, cards, badges e status pills).
+- **Layout responsivo** reutilizando o tema “Aguapé” (sidebar, cards, badges, status pills).
 
 ## Estrutura do projeto
 
 ```
-barcohotel/          # Configura��es principais (settings, urls, wsgi/asgi)
-catalogo/            # App dedicado ao cat��logo (models/forms/views/urls dos itens)
-controle/            # App operacional (login, movimenta����es e relat��rios)
-templates/           # Base.html + telas (catalogo, controle e conta/login)
-static/css/          # aguape.css com tema geral
-media/               # Pasta para uploads 
-db.sqlite3           # Banco padr�o (pode ser recriado via migrate)
+barcohotel/          # Configurações principais (settings, urls, wsgi/asgi)
+catalogo/            # App dedicado ao catálogo de itens (models/forms/views/urls próprios)
+controle/            # App operacional (login, movimentações e relatórios)
+templates/           # Base.html + telas para catálgo, controle e conta/login
+static/css/          # aguape.css com o tema global
+media/               # Pasta para uploads (vazia no repositório)
+db.sqlite3           # Banco padrão (pode ser recriado via migrate)
 ```
 
 ## Pré-requisitos
 
-- Python 3.10+ (desenvolvido com 3.13).
+- Python 3.10+ (o desenvolvimento atual usa 3.13).
 - Virtualenv recomendado (`python -m venv .venv`).
 - Dependências: somente Django (`pip install django`).
 
 ## Passo a passo para rodar
 
-1. **Clonar e entrar na pasta**:
+1. **Clonar e entrar na pasta:**
    ```bash
    git clone <repo> estoque
    cd estoque
    ```
-2. **Criar/ativar o ambiente virtual**:
+2. **Criar/ativar o ambiente virtual:**
    ```bash
    python -m venv .venv
    # PowerShell
    .\.venv\Scripts\Activate.ps1
    ```
-3. **Instalar dependências**:
+3. **Instalar dependências:**
    ```bash
    pip install django
    ```
-4. **Aplicar migrações**:
+4. **Aplicar migrações:**
    ```bash
    python manage.py migrate
    ```
-5. **Criar um usuário (necessário para login)**:
+5. **Criar um usuário (necessário para login):**
    ```bash
    python manage.py createsuperuser
    ```
-6. **Subir o servidor**:
+6. **Subir o servidor:**
    ```bash
    python manage.py runserver
    ```
-7. **Acessar**: abra http://127.0.0.1:8000/ e use as credenciais criadas.
+7. **Acessar:** abra `http://127.0.0.1:8000/` e use as credenciais criadas.
 
 ## Fluxo de uso
 
-1. **Login** – `/login/` login para entrar no sistema.
+1. **Login** – `/login/` para entrar na aplicação.
 2. **Dashboard/Relatórios** – `/relatorio/` exibe resumo semanal e alertas.
-3. **Movimentações** – `/movimentacao/` para lançar entradas/saídas rápidas.
-4. **Itens** – `/itens/` para cadastrar, editar ou excluir itens.
+3. **Movimentações** – `/movimentacao/` registra entradas/saídas rápidas.
+4. **Itens** – `/itens/` lista e permite cadastrar/editar/excluir itens ao direcionar para o app `catalogo`.
 
-Todos os endpoints que manipulam dados estão protegidos com `@login_required`.
+Todos os endpoints que manipulam dados estão protegidos por `@login_required`.
 
 ## Personalização
 
-- `static/css/aguape.css` guarda todo o tema (cores, cards, sidebar, tabelas).
-- `templates/base.html` concentra o layout (sidebar e estados especiais de login).
-- A pasta `media/` está vazia; configure `MEDIA_ROOT`/`MEDIA_URL` conforme necessário.
+- `static/css/aguape.css` guarda todo o tema (cores, cards, sidebar, tabelas, alertas).
+- `templates/base.html` concentra o layout principal, incluindo o estado especial para a tela de login.
+- A pasta `media/` está vazia; configure `MEDIA_ROOT`/`MEDIA_URL` conforme necessário para armazenar uploads.
 
 ## Próximos passos sugeridos
 
-- Criar testes específicos para autenticação e restrições de acesso.
-- Expandir relatórios com filtros por período e exportação.
-- Integrar notificações (e-mail/SMS) para itens em alerta.
+- Criar testes automatizados cobrindo autenticação e regras de estoque.
+-,Expandir o módulo de relatórios com filtros por período e exportação (CSV/PDF).
+- Integrar notificações (e-mail/SMS) para itens em alerta ou movimentações específicas.
 
 ---
 Projeto mantido com Django puro, sem React ou SQL manual, seguindo as diretrizes do Barco-Hotel Aguapé.

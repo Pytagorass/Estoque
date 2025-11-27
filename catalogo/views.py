@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models.deletion import ProtectedError
 
 from .forms import ItemForm
 from .models import Item
@@ -49,8 +50,15 @@ def excluir_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
     if request.method == "POST":
         nome = item.nome
-        item.delete()
-        messages.success(request, f"Item {nome} removido.")
+        try:
+            item.delete()
+            messages.success(request, f"Item {nome} removido.")
+        except ProtectedError:
+            messages.error(
+                request,
+                "Não é possível excluir este item porque existem movimentações associadas. "
+                "Remova ou ajuste as movimentações antes de excluir.",
+            )
         return redirect("catalogo:cadastro_itens")
     return render(request, "catalogo/item_confirm_delete.html", {"item": item})
 
